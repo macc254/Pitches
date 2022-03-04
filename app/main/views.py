@@ -1,8 +1,9 @@
-def index():
+from flask import render_template,request,redirect,url_for,abort
+from . import main
+from .forms import ReviewForm,UpdateProfile
+from ..models import Review,User,PhotoProfile
+from flask_login import login_required, current_user
+from .. import db,photos
+import markdown2  
 
-    '''
-    View root page function that returns the index page and its data
-    '''
 
-    title = 'Home - Welcome to The best Pitches site'
-    return render_template('index.html', title = title)
