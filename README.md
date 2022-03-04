@@ -1,4 +1,4 @@
-### Piches
+### Pitches
 Repo link: https://github.com/macc254/Pitches.git
 ## Project description
 
@@ -23,11 +23,11 @@ A user should be able to:
 $ python3.8 -m venv virtual
 $ source virtual/bin/activate
 
-
-- Install all the necessary modules
-
-$ git clone https://github.com/macc254/Piches.git
+$ git clone https://github.com/macc254/Pitches.git
 - Navigate into the cloned project.
+
+- Install all the necessary modules using requiments.txt 
+pip install -r requirements.txt
 
 $ cd news-api
 
