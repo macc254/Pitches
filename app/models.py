@@ -14,13 +14,11 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
-    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
-    photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
-    reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
-    pass_secure = db.Column(db.String(255))
+    pitches = db.relationship('Pitch',backref = 'author',lazy = "dynamic")
+    likes = db.relationship('Likes', backref = 'user', lazy = 'dynamic')
+    dislikes = db.relationship('Dislikes', backref = 'dislike', lazy = 'dynamic')
     @property
     def password(self):
         raise AttributeError('You cannnot read the password attribute')
@@ -48,4 +46,34 @@ class Pitch(db.Model):
     dislikes = db.relationship('Dislikes', backref = 'dislikes', lazy = 'dynamic')
     
     def __repr__(self):
-        return '<User %r>' % self.pitch
+        return f'User {self.pitch}'
+    
+class Likes(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    upvote = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_likes(cls,id):
+        upvotes = Likes.query.filter_by(pitch_id =id).all()
+        return upvotes
+
+class Dislikes(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    downvote = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_dislikes(cls,id):
+        downvotes = Dislikes.query.filter_by(pitch_id =id).all()
+        return downvotes
