@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,TextAreaField,SubmitField,ValidationError
+from wtforms import StringField,TextAreaField,SubmitField,ValidationError, BooleanField
 from wtforms.validators import DataRequired,Email
 
 class ReviewForm(FlaskForm):
@@ -12,3 +12,4 @@ class ReviewForm(FlaskForm):
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [DataRequired()])
     submit = SubmitField('Submit')
+
