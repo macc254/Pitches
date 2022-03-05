@@ -1,9 +1,9 @@
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,redirect,url_for,abort
 from . import main
-from .forms import ReviewForm,UpdateProfile
-from ..models import Review,User,PhotoProfile
+from .forms import ReviewForm
+from ..models import User
 from flask_login import login_required, current_user
-from .. import db,photos
+from .. import db
 import markdown2  
 
 
