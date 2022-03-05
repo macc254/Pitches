@@ -1,7 +1,7 @@
 from flask import render_template,redirect,url_for,abort
 from . import main
-from .forms import ReviewForm,UpdateProfile
-from ..models import User
+from .forms import CommentForm,UpdateProfile
+from ..models import User,Pitch,Comment
 from flask_login import login_required, current_user
 from .. import db
 import markdown2  
@@ -10,7 +10,20 @@ import markdown2
 @main.route('/pitch/comment/new/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_comment(id):
-    ''''''
+    form = CommentForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        comment = form.comment.data
+
+        # Updated review instance
+        new_comment = Pitch(pitch_id=id,pitch_title=title,pitch_comment=comment,user=current_user)
+
+        # save review method
+        new_comment.save_comment()
+        return redirect(url_for('.pitch',id = id ))
+
+    title = f'{title} comment'
+    return render_template('new_comment.html',title = title,comment_form=form)
     
 @main.route('/user/<uname>')
 def profile(uname):
