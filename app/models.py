@@ -101,17 +101,17 @@ class Likes(db.Model):
         upvotes = Likes.query.filter_by(pitch_id =id).all()
         return upvotes
 
-# class Dislikes(db.Model):
-#     id = db.Column(db.Integer,primary_key = True)
-#     downvote = db.Column(db.Integer)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-#     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+class Dislikes(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    downvote = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
 
-#     def save(self):
-#         db.session.add(self)
-#         db.session.commit()
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
-#     @classmethod
-#     def get_dislikes(cls,id):
-#         downvotes = Dislikes.query.filter_by(pitch_id =id).all()
-#         return downvotes
+    @classmethod
+    def get_dislikes(cls,id):
+        downvotes = Dislikes.query.filter_by(pitch_id =id).all()
+        return downvotes

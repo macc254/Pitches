@@ -52,3 +52,11 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
+
+@main.route('/comment/<int:id>')
+def single_comment(id):
+    comment = Comment.query.get(id)
+    if comment is None:
+        abort(404)
+    format_comment = markdown2.markdown(comment.pitch_comment,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('review.html',comment = comment, format_comment = format_comment)
