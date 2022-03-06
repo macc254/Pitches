@@ -2,23 +2,23 @@
 <div class="container-fluid">
     {{user.username}} {{pitches.pitches}}{% if comments %}
     <div class="row">
+        <div class="col-sm-8">
+            {{wtf.quick_form(comment_form)}}
+        </div>
         <div class="col-sm-4">
             <h3>All comments</h3>
             {% for comment in comments %}
             <div class="card w-90 mb-3">
                 <div class="card-body">
-                    <h5>{{comment.pitch_id}}</h5>
-                    <h3>{{comment.id}}</h3>
-                    <p class="card-title">{{ comment.comment }}</p>
-                    <p class="card-text">--- {{comment.posted}}</p>
-                    <p class="card-text"> {{comment.user_id}}</p>
+                    <h3>{{comment.title}}</h3>
+                    <h5>{{comment.id}}) Your comment: {{ comment.comment }}</h5>
+
+                    <p class="card-text"> {{comment.username}}</p>
 
                 </div>
             </div>
             {% endfor%}
-            <div class="col-sm-8">
-                {{wtf.quick_form(comment_form)}}
-            </div>
+
         </div>
         {%else%}
         <div class="col-md-5">There are no comments.</div>
