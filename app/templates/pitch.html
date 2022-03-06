@@ -20,10 +20,10 @@
     <div class="row">
 
         <h1>Comments</h1>
-        <hr> {% if comments %} {{macro.displayComments(comments)}} {% else%}
+        <hr> {% if comment %} {{macro.displayComment(comment)}} {% else%}
         <h3 class="text-center">This pitch has no comments</h3>
 
-        <a class="btn btn-success btn-lg text-center" href="/pitch/comment/new/{{pitch.id}}">Leave a comment</a> {% endif %}
+        <a class="btn btn-success btn-lg text-center" href="/pitch/comment/new/{{pitch.id}}">comment</a> {% endif %}
 
     </div>
 

@@ -1,22 +1,34 @@
 from flask import render_template,redirect,url_for,abort
 from . import main
 from .forms import CommentForm,UpdateProfile
-from ..models import User,Pitch,Comment
+from ..models import User,Comment
 from flask_login import login_required, current_user
 from .. import db
 import markdown2  
+
+@main.route('/')
+def index():
+    '''
+    View root page function that returns the index page and its data
+    '''
+   
+    title = 'Home - Welcome to Pitches site'
+
+    
+    return render_template('index.html', title = title)
 
 
 @main.route('/pitch/comment/new/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_comment(id):
     form = CommentForm()
+    # pitches = get_pitches(id)
     if form.validate_on_submit():
         title = form.title.data
         comment = form.comment.data
 
         # Updated review instance
-        new_comment = Pitch(pitch_id=id,pitch_title=title,pitch_comment=comment,user=current_user)
+        new_comment = Comment(pitch_id=id,pitch_title=title,pitch_comment=comment,user=current_user)
 
         # save review method
         new_comment.save_comment()
@@ -59,4 +71,4 @@ def single_comment(id):
     if comment is None:
         abort(404)
     format_comment = markdown2.markdown(comment.pitch_comment,extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('review.html',comment = comment, format_comment = format_comment)
+    return render_template('comment.html',comment = comment, format_comment = format_comment)

@@ -1,4 +1,4 @@
-from flask import render_template,redirect,url_for, flash ,request
+from flask import render_template,redirect,url_for, flash,request
 from . import auth
 from ..models import User
 from .forms import LoginForm,RegistrationForm
@@ -29,7 +29,9 @@ def register():
         user = User(email = form.email.data, username = form.username.data,password = form.password.data)
         db.session.add(user)
         db.session.commit()
-        # mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
+        user.save_u() #can be removed
+
+        # mail_message("Welcome to Pitch Site","email/welcome_user",user.email,user=user)
 
         return redirect(url_for('auth.login'))
         title = "New Account"
@@ -41,4 +43,4 @@ def register():
 def logout():
     logout_user()
     flash('You have been successfully logged out')
-    return redirect(url_for("main.profile"))
+    return redirect(url_for("main.index"))
