@@ -1,26 +1,29 @@
 {% extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf %} {% block content%}
 <div class="container-fluid">
-    {% if comment %}
+    {{user.username}} {{pitches.pitches}}{% if comments %}
     <div class="row">
         <div class="col-sm-4">
             <h3>All comments</h3>
-            {%for comment in comment %}
+            {% for comment in comments %}
             <div class="card w-90 mb-3">
                 <div class="card-body">
-                    <h5>{{comment.pitch.title}}</h5>
+                    <h5>{{comment.pitch_id}}</h5>
+                    <h3>{{comment.id}}</h3>
                     <p class="card-title">{{ comment.comment }}</p>
-                    <p class="card-text">--- {{comment.user.username}}</p>
+                    <p class="card-text">--- {{comment.posted}}</p>
+                    <p class="card-text"> {{comment.user_id}}</p>
+
                 </div>
             </div>
             {% endfor%}
             <div class="col-sm-8">
-                {{wtf.quick_form(form)}}
+                {{wtf.quick_form(comment_form)}}
             </div>
         </div>
         {%else%}
         <div class="col-md-5">There are no comments.</div>
         <div class="col-md-5">
-            {{wtf.quick_form(form)}}
+            {{wtf.quick_form(comment_form)}}
         </div>
         {%endif%}
     </div>

@@ -9,9 +9,9 @@
             {% if user.bio %}
             <p> {{user.bio}}</p>
             {%else%}
-            <p> {{user.username| capitalize}} You have no pitch</p>
+            <p> {{user.username| capitalize}} You have no bio</p>
             {% endif %} {% if user == current_user %}
-            <a href="{{url_for('main.update_profile',uname=user.username)}}">Add a pitch</a> {% endif %}
+            <a href="{{url_for('main.update_profile',uname=user.username)}}">Add bio</a> {% endif %}
         </div>
 
     </div>

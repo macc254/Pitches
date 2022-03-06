@@ -1,4 +1,4 @@
-{% extends 'base.html'%} {% import 'macros.html' as macro%}
+{% extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf%}{% import 'macros.html' as macro%}
 <!-- Styles block -->
 
 {% block styles%} {{ super() }}
@@ -9,36 +9,31 @@
 {% block content %}
 
 <!-- search movies -->
-<div class="container">
+<div class="container  mt-3 ml-3 ml-3">
+    <div class="row" style="padding-left: 30px; ">
+        {% if current_user.is_authenticated %}
+        <h1>Hello {{current_user.username}},</h1>
+        {% else %}
+        <h1>Hello stranger</h1>
+        {% endif %}
+        <h2>Welcome to Pitches Site.</h2>
 
-    {% if current_user.is_authenticated%}
-    <h1>Hello {{current_user.username}}</h1>
-    {% else %}
-    <h1>Hello stranger</h1>
-    {%endif%}
-    <h2>Welcome to Pitches Site</h2>
-    <h3>Create a Pitch</h3>
-    <button><a class="bg-success" class="nav-link" href="{{url_for('main.new_pitch')}}">Pitch</a>
-    </button>
-    <div class='row'>
-        <div class="col-md-4" id='all'>
-            {{ macro.display(pitch) }}
-
-        </div>
-        <div class="col-md-4" id='email'>
-            {{ macro.display(email) }}
-
-        </div>
-        <div class="col-md-4" id='social'>
-            {{ macro.display(social) }}
-
-        </div>
-        <div class="col-md-4" id='business'>
-            {{ macro.display(business) }}
-
-        </div>
+        <button style="background-color: black; color: white;"><a  style=" color: white;"  href="{{url_for('main.pitch_form')}}"> Pitch</a>
+        </button>
     </div>
+    {% for pitch in pitches %}
 
-</div>
+    <div class="card" style="width: 700px; padding-left: 100px; border: 2px solid black " id="pitches">
+        <div class="card-header">
 
-{% endblock%}
+            <ul class="list-group list-group-flush">
+                <h3 class='card-title list-group-item'>Title: {{pitch.title}}</h3>
+                <h4 class='card-text list-group-item'>Category: {{pitch.category}}</h4>
+                <li class='card-description list-group-item'>Pitch: {{pitch.pitch_text}}</li>
+            </ul>
+            <a style=" color: black;" href=" {{url_for('main.comment',pitch_id = pitch.id)}} " class="text-dark ">Comments</a>
+
+        </div>
+
+    </div>
+    {% endfor %} {% endblock%}
