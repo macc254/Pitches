@@ -27,8 +27,8 @@ class User(UserMixin,db.Model):
     password_hash = db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
     bio = db.Column(db.String(255))
-    comments = db.relationship('Comments',backref = 'comments',lazy = "dynamic")
-    pitches = db.relationship('Pitches',backref = 'author',lazy = "dynamic")
+    comment = db.relationship('Comment',backref = 'comments',lazy = "dynamic")
+    pitches = db.relationship('Pitch',backref = 'author',lazy = "dynamic")
     like = db.relationship('Like', backref = 'user', lazy = 'dynamic')
     dislike = db.relationship('Dislike', backref = 'user', lazy = 'dynamic')
     @property
@@ -52,7 +52,7 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer,primary_key = True)
-    pitch_id = db.Column(db.Integer)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'),nullable = False)
     pitch_comment = db.Column(db.String)
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
@@ -102,7 +102,7 @@ class Like(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_likes(cls,id):
+    def get_like(cls,id):
         like = Like.query.filter_by(pitch_id =id).all()
         return like
     def __repr__(self):
