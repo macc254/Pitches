@@ -72,6 +72,7 @@ class Pitch(db.Model):
 
     __tablename__ = 'pitches'
     id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(255))
     category = db.Column(db.String(255))
     pitch_text = db.Column(db.String(400))
     posted = db.Column(db.DateTime, index=True, default=datetime.utcnow)
