@@ -4,8 +4,7 @@ from wtforms.validators import DataRequired
 
 class CommentForm(FlaskForm):
 
-     title = StringField('Title',validators=[DataRequired()])
-     comment = TextAreaField('Comment')
+     comment = TextAreaField('Comment',validators = [DataRequired()])
      submit = SubmitField('Submit')
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us more about you.',validators = [DataRequired()])
