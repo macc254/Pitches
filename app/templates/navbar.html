@@ -13,13 +13,20 @@
             <ul class="nav navbar-nav nava-nav navbar-right">
                 <li><a href="/">Home</a></li>
                 <li>
-                    <a href="/">Pitches</a>
+                    <a class="nav-link" href="{{url_for('main.index')}}"> Pitches</a>
                 </li>
                 {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('main.new_pitch')}}">New Pitch</a>
+                </li>
+                {% endif %} {% if current_user.is_authenticated %}
                 <li><a href="{{url_for( 'main.profile',uname=current_user.username)}} ">Profile</a></li>
                 <li style="color:white;padding:15px; ">{{current_user.username}}</li>
                 <li><a href="{{url_for( 'auth.logout')}} ">Sign out</a></li>
                 {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('main.new_pitch')}}">New Pitch</a>
+                </li>
                 <li><a href="{{url_for( 'auth.login')}} ">Sign in</a></li>
             </ul> {%endif%} </div>
 

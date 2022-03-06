@@ -24,15 +24,17 @@ def index():
 @main.route('/pitch',methods = ['GET','POST'])
 @login_required
 def new_pitch():
-    form = PitchForm
+    form = PitchForm()
     if form.validate_on_submit():
         title = form.title.data
-        pitch = form.pitch.data
+        pitch_comment = form.pitch.data
         category = form.category.data
         user_id = current_user
-        new_pitch = Pitch(pitch=pitch,category=category,user_id=current_user._get_current_object().id,title = title)
+        new_pitch = Pitch(pitch=pitch_comment,category=category,user_id=current_user._get_current_object().id,title = title)
         new_pitch.save()
         return redirect(url_for('main.index'))
+    return render_template('new_pitch.html', pitch_form=form )
+
 
 @main.route('/comment/<int:pitch_id>', methods = ['GET','POST'])
 @login_required

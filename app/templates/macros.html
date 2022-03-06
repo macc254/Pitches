@@ -1,23 +1,21 @@
-{% macro displayPitchList(pitch_list) %} {% for pitch in pitch_list %}
+{% macro displayPitchList(pitch_list) %} {%if pitch %}{% for category in pitch_list %}
+<h3>category.title</h3>
+<p>category.pitch</p>
+<p>Category: {{category.category}}</p>
+<p>{{category.comment.count()}} Comments
+</p>
 <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 movie-card">
     <li class="text-center">
         <a href="/pitch/{{pitch.id}}" class="text-primary">{{ pitch.title }}</a>
     </li>
 </div>
-{% endfor %} {% endmacro %}
+<span class="foot"> <a href="{{url_for('main.like',id = category.id)}}"><i class="fa fa-thumbs-up" style="font-size:18px;color: green"></i></a> {{category.upvote.count()}}</span> {% endfor %}
+<span class="foot"> <a href="{{url_for('main.dislike',id = category.id)}}"> <i class="fa fa-thumbs-down" style="color:red;"></i> {{category.downvote.count()}}</a></span></div>
+<a href="{{url_for('main.comment',pitch_id = category.id)}}" class="btn btn-info btn-sm"> Comment</a> {% else %}
+<p>This category has no posts</p>{% endif %}
+<div class="card w-90 mb-3">
+    <div class="card-body">
 
-<!-- Displaying reviews macro -->
-{% macro displayComment(comment_list) %} {% for comment in comment_list %}
-
-<div class="row">
-
-    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-        <h4>Author</h4>
-        <p>{{comment.user.username}}</p>
+        <p class="card-title">Category Has 0 posts</p>
     </div>
-    <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
-        <h2> <a href="{{url_for('main.single_comment',id=comment.id)}}">{{comment.title}}</a>
-        </h2>
-    </div>
-</div>
-{% endfor %} {% endmacro %}
+</div>{% endmacro %}
