@@ -1,12 +1,14 @@
 ### Pitches
 Repo link: https://github.com/macc254/Pitches.git
+
+## Author
+Mercy Bore
 ## Project description
 
 In life, you only have 60 seconds to impress someone. 1 minute can make or break you. This is an app that allows you to make a pitch, other users can downvote or upvote it and leave comments 
 ## BDD
 A user should be able to:
 - See the pitches other people have posted.
-- Vote on the pitch they liked and give it a downvote or upvote.
 - Be signed to leave a comment
 - Receive a welcoming email on sign up.
 - View the pitches  created in  profile page.
@@ -34,7 +36,7 @@ $ cd news-api
 Create a start.sh file
 - $ touch start.sh
 
-On your start.sh file , add the command for executing manage.py (python3 manage.py server), which will start the server.
+On your start.sh file , add the command for executing manage.py (python3.8 manage.py server), which will start the server.
 
 
 Give the file execution permissions.
