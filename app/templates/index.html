@@ -9,7 +9,7 @@
 {% block content %}
 
 <!-- search movies -->
-<div class="container  mt-3 ml-3 ml-3">
+<div class="container-fluid">
     <div class="row" style="padding-left: 30px; ">
         {% if current_user.is_authenticated %}
         <h1>Hello {{current_user.username}},</h1>
@@ -18,22 +18,25 @@
         {% endif %}
         <h2>Welcome to Pitches Site.</h2>
 
-        <button style="background-color: black; color: white;"><a  style=" color: white;"  href="{{url_for('main.pitch_form')}}"> Pitch</a>
-        </button>
-    </div>
-    {% for pitch in pitches %}
 
-    <div class="card" style="width: 700px; padding-left: 100px; border: 2px solid black " id="pitches">
-        <div class="card-header">
-
-            <ul class="list-group list-group-flush">
-                <h3 class='card-title list-group-item'>Title: {{pitch.title}}</h3>
-                <h4 class='card-text list-group-item'>Category: {{pitch.category}}</h4>
-                <li class='card-description list-group-item'>Pitch: {{pitch.pitch_text}}</li>
-            </ul>
-            <a style=" color: black;" href=" {{url_for('main.comment',pitch_id = pitch.id)}} " class="text-dark ">Comments</a>
-
-        </div>
+        <p><a style="background-color: white; color: black;" href=" {{url_for('main.pitch_form')}} " class="btn btn-primary" role="button">Comment</a></p>
 
     </div>
-    {% endfor %} {% endblock%}
+    <div class="row">
+        {% for pitch in pitches %}
+
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3> {{pitch.title}}</h3>
+                    <p>Category: {{pitch.category}}</p>
+                    <p>Pitch: {{pitch.pitch_text}}</p>
+                    <p><a style="background-color: black; color: white;" href=" {{url_for('main.comment',pitch_id = pitch.id)}} " class="btn btn-primary" role="button">Comment</a></p>
+                </div>
+            </div>
+        </div> {% endfor %}
+
+    </div>
+
+</div>
+{% endblock%}

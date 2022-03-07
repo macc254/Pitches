@@ -1,8 +1,6 @@
-.container {
+.container-fluid {
     font-family: 'Roboto', sans-serif;
     font-family: 'Shadows Into Light', cursive;
-}
-
-#pitches {
-    margin-left: 30%;
+    color: aliceblue;
+    background-color: black;
 }
